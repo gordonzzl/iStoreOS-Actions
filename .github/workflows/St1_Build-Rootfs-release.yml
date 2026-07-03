@@ -5,13 +5,11 @@ on:
       build_version:
         description: "1、请选择构建版本"
         required: true
-        default: '20260417'
+        default: '24.10.6-20260417'
         type: choice
         options:
-          - '20260417'
-          - '20260410'
-          - '20260320'
-          - '20251231'
+          - '24.10.7-20260605'
+          - '24.10.6-20260417'
       network_settings:
         description: "2、请选择初始网络配置"
         required: true
@@ -30,7 +28,7 @@ on:
         default: '192.168.5.1'
 
 env:
-  VERSION: 24.10.6
+  VERSION: ${{ github.event.inputs.build_version }}
 
 jobs:
   build:
@@ -43,6 +41,11 @@ jobs:
       run: | 
         chmod +x arm64/build24.sh
         chmod +x shell/*.sh
+
+    - name: ⚙️ 提取版本号更新变量
+      run: |
+        VERSION_CLEAN=$(echo "${{ env.VERSION }}" | cut -d'-' -f1)
+        echo "VERSION=$VERSION_CLEAN" >> $GITHUB_ENV
 
     - name: ⚙️ 设置IP、网关和版本号
       run: |
