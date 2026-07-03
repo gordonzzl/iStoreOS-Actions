@@ -1,4 +1,4 @@
-name: 💿 St2_Build-iStoreOS-ib
+name: 💿 St2_Build-iStoreOS-using-ib
 on:
   repository_dispatch:
   workflow_dispatch:
